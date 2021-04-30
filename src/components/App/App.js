@@ -7,16 +7,30 @@ import Errors from '../Errors/Errors'
 
 const App = () => {
     const [hotels, setHotels] = useState([]);
-    const [errors, setErrors] = useState()
+    const [errors, setErrors] = useState('');
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
-        hotelResultService.get().then(response => {
-            setHotels(response.results.hotels)
-        })
-        .catch(error => {
-            setErrors(error.message)
-        })
-    }, []);
+        if(hotels && searchInput){
+            const filteredHotels = hotels.filter(hotel => {
+                hotel.hotelStaticContent.name.toLowerCase().includes(searchInput.toLowerCase())
+            })
+            // TODO: filteredHotels always is an empty array
+            setHotels(filteredHotels)
+        } else {
+            hotelResultService.get().then(response => {
+                setHotels(response.results.hotels)
+            })
+            .catch(error => {
+                setErrors(error.message)
+            })
+        }
+
+    }, [searchInput]);
+
+    const handleSearchChange = (event) => {
+        setSearchInput(event.target.value)
+    }
 
     return (
         <div className="app-container">
@@ -24,7 +38,12 @@ const App = () => {
                 <div>
                     <div className="filters">
                         Hotel name
-                        <input type="text" className="input" maxLength={1}/>
+                        <input 
+                            type="text"
+                            placeholder="Hotel Name"
+                            value={searchInput}
+                            onChange={handleSearchChange}
+                            className="input" />
                         Price
                         <select name="" className="select">
                             <option value="">Recommended</option>
