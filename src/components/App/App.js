@@ -3,13 +3,18 @@ import './App.style.scss'
 
 import hotelResultService from '../../services/hotel-result/hotel-result.service';
 import HotelList from '../HotelList/HotelList'
+import Errors from '../Errors/Errors'
 
 const App = () => {
     const [hotels, setHotels] = useState([]);
+    const [errors, setErrors] = useState()
 
     useEffect(() => {
         hotelResultService.get().then(response => {
             setHotels(response.results.hotels)
+        })
+        .catch(error => {
+            setErrors(error.message)
         })
     }, []);
 
@@ -29,8 +34,8 @@ const App = () => {
                         <button className="button">Reset</button>
                     </div>
                 </div>
-
-            <HotelList hotels={hotels} />
+            {errors ? <Errors errors={errors} /> : <HotelList hotels={hotels} />}
+            
             </div>
         </div>
     )
