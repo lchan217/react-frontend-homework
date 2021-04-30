@@ -1,4 +1,5 @@
 import React from 'react';
+import './HotelList.style.scss'
 
 const HotelList = (props) => {
     const { hotels } = props

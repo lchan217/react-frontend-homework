@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.style.scss'
 
 import hotelResultService from '../../services/hotel-result/hotel-result.service';
-import HotelList from '../HotelList'
+import HotelList from '../HotelList/HotelList'
 
 const App = () => {
     const [hotels, setHotels] = useState([]);
