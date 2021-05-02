@@ -24,6 +24,8 @@ const App = () => {
             let result = []
             if(searchInput){
                 result = hotels.filter(hotel => hotel.hotelStaticContent.name.toLowerCase().includes(searchInput.toLowerCase()))
+            } else {
+                result = hotels
             }
             
             if(priceSortInput){                
@@ -34,7 +36,14 @@ const App = () => {
                     result.sort((a,b) => b.lowestAveragePrice.amount - a.lowestAveragePrice.amount)
                 }
             }
-            setFilteredHotels(result)
+
+            if(result.length){
+                setFilteredHotels(result)
+                setErrors('')
+            } else {
+                setErrors('No results found')
+            }
+           
         }
     }, [searchInput, priceSortInput]);
 
@@ -50,6 +59,7 @@ const App = () => {
         setSearchInput("")
         setPriceSort("")
         setFilteredHotels([])
+        setErrors('')
     }
 
     return (
