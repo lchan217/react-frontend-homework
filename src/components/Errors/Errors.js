@@ -4,7 +4,7 @@ const Errors = (props) => {
     const { errors } = props
     return (
         <div>
-            There was an error: {errors}
+            There was an error: {errors}. Please try again.
         </div>
     );
 };
