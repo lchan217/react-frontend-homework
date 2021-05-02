@@ -54,5 +54,11 @@
     width: 100%;
     padding: 10px;
     font-weight: 500;
+    border: none;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: #96cf7b;
   }
 }

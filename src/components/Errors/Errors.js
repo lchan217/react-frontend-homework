@@ -1,10 +1,10 @@
 import React from 'react';
-
+import './Errors.style.scss'
 const Errors = (props) => {
     const { errors } = props
     return (
-        <div>
-            There was an issue: {errors}. Please try again.
+        <div className="error-card">
+            There was an issue: {errors}. Please reload the page.
         </div>
     );
 };
