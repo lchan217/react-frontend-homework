@@ -4,6 +4,7 @@ import './App.style.scss'
 import hotelResultService from '../../services/hotel-result/hotel-result.service';
 import HotelList from '../HotelList/HotelList'
 import Errors from '../Errors/Errors'
+import { Dropdown } from 'semantic-ui-react'
 
 const App = () => {
     const [hotels, setHotels] = useState([]);
@@ -13,7 +14,7 @@ const App = () => {
     const [priceSortInput, setPriceSort] = useState('')
 
     useEffect(() => {
-        if(searchInput === "" && priceSortInput === "" ){
+        if(searchInput === "" && priceSortInput === ""){
             hotelResultService.get().then(response => {
                 setHotels(response.results.hotels)
             })
@@ -21,11 +22,9 @@ const App = () => {
                 setErrors(error.message)
             })
         } else {
-            let result = []
+            let result = [...hotels]
             if(searchInput){
                 result = hotels.filter(hotel => hotel.hotelStaticContent.name.toLowerCase().includes(searchInput.toLowerCase()))
-            } else {
-                result = hotels
             }
             
             if(priceSortInput){                
@@ -51,8 +50,8 @@ const App = () => {
         setSearchInput(event.target.value)
     }
 
-    const handlePriceSort = (event) => {
-        setPriceSort(event.target.value)
+    const handlePriceSort = (event, data) => {
+        setPriceSort(data.value)
     }
 
     const handleReset = (event) => {
@@ -61,6 +60,21 @@ const App = () => {
         setFilteredHotels([])
         setErrors('')
     }
+
+    const priceOptions = [
+        {
+            text: 'Recommended',
+            value: 'recommended',
+        },
+        {
+            text: 'Price low-to-high',
+            value: 'low-to-high',
+        },
+        {
+            text: 'Price high-to-low',
+            value: 'high-to-low',
+        }
+    ]
 
     return (
         <div className="app-container">
@@ -75,16 +89,16 @@ const App = () => {
                             onChange={handleSearchChange}
                             className="input" />
                         Price
-                        <select name="" 
-                            className="select"
+                        <Dropdown 
+                            name=""
+                            selection
+                            className='select-dropdown'
+                            fluid
+                            placeholder="Recommended"
                             onChange={handlePriceSort}
                             value={priceSortInput}
-                            >
-
-                            <option value="recommended">Recommended</option>
-                            <option value="low-to-high">Price low-to-high</option>
-                            <option value="high-to-low">Price high-to-low</option>
-                        </select>
+                            options={priceOptions}
+                        />
                         <button className="button" onClick={handleReset}>Reset</button>
                     </div>
                 </div>
@@ -98,5 +112,6 @@ const App = () => {
 }
 
 export default App;
+
 
 

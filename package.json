@@ -38,7 +38,9 @@
   "dependencies": {
     "axios": "^0.21.1",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3"
   },
   "resolutions": {
     "node-forge": "0.10.0"

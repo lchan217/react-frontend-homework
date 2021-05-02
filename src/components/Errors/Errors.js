@@ -4,7 +4,7 @@ const Errors = (props) => {
     const { errors } = props
     return (
         <div className="error-card">
-            There was an issue: {errors}. Please reload the page.
+            {errors} - Please reload the page.
         </div>
     );
 };
